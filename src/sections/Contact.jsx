@@ -1,9 +1,7 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion";
-import { Particles } from "../components/Particles";
+import { motion } from "motion/react";
 import Notification from "../components/Notification";
-import StarsBackground from "../components/StarsBackground";
 import SocialLinks from "../components/SocialLinks";
 import ContactInfo from "../components/ContactInfo";
 import ContactForm from "../components/ContactForm";
@@ -65,15 +63,6 @@ const Contact = () => {
       id="contact"
       className="relative flex items-center justify-center min-h-screen px-4 py-20 overflow-hidden"
     >
-      <Particles
-        className="absolute inset-0 -z-50"
-        quantity={300}
-        ease={80}
-        color={"#6366f1"}
-        refresh
-      />
-
-      <StarsBackground />
 
       <motion.div
         className="w-full max-w-4xl mx-auto"

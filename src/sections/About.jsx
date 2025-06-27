@@ -1,26 +1,23 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Card from "../components/Card";
 import { Globe } from "../components/Globe";
 import { Frameworks } from "../components/Frameworks";
 import CVButton from "../components/CVButton";
-import CVPreview from "../components/CVPreview";
 
 const About = () => {
   const grid2Container = useRef();
   const mainContainerRef = useRef();
-  const [showCVPreview, setShowCVPreview] = useState(false);
 
-  useEffect(() => {
-    if (showCVPreview) {
-      mainContainerRef.current.style.overflow = "hidden";
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-      mainContainerRef.current.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      mainContainerRef.current.style.overflow = "";
-      mainContainerRef.current.style.paddingRight = "";
-    }
-  }, [showCVPreview]);
+  // Handle CV download
+  const handleDownloadCV = () => {
+    const cvUrl = "/assets/cv/cv_nadhif_ararya_wiankosasi.pdf";
+    const link = document.createElement("a");
+    link.href = cvUrl;
+    link.download = "Justdhif_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div ref={mainContainerRef}>
@@ -118,7 +115,7 @@ const About = () => {
               <p className="text-center headtext">
                 Do you want start a project together?
               </p>
-              <CVButton onClick={() => setShowCVPreview(true)} />
+              <CVButton onClick={handleDownloadCV} />
             </div>
           </div>
 
@@ -136,9 +133,6 @@ const About = () => {
             </div>
           </div>
         </div>
-
-        {/* CV Preview controlled by About component */}
-        {showCVPreview && <CVPreview onClose={() => setShowCVPreview(false)} />}
       </section>
     </div>
   );

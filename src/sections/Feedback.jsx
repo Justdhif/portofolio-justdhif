@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import FeedbackForm from "../components/FeedbackForm";
 import FeedbackList from "../components/FeedbackList";
-import { Particles } from "../components/Particles";
 
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -23,14 +22,6 @@ const Feedback = () => {
 
   return (
     <section className="relative flex items-center justify-center min-h-screen px-4 py-20 overflow-hidden">
-      <Particles
-        className="absolute inset-0 -z-50"
-        quantity={300}
-        ease={80}
-        color={"#6366f1"}
-        refresh
-      />
-
       <div className="w-full px-4">
         <h2 className="text-heading text-center">
           What do you think about justdhif?
