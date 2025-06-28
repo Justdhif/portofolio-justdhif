@@ -53,12 +53,12 @@ const SplashScreen = ({ progress }) => {
           <TechStackIcons />
 
           <motion.h1
-            className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-rose-400 mb-6"
+            className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-lavender to-storm mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Loading Portfolio
+            Welcome to my Portofolio
           </motion.h1>
 
           <BouncingCirclesLoader progress={localProgress} />

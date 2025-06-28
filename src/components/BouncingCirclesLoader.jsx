@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 const BouncingCirclesLoader = ({ progress }) => {
   const circleCount = 5;
   const colors = [
-    "bg-amber-400",
-    "bg-rose-500",
-    "bg-purple-500",
-    "bg-cyan-400",
+    "bg-royal",
+    "bg-coral",
+    "bg-lavender",
+    "bg-aqua",
     "bg-emerald-400",
   ];
 
@@ -32,7 +32,7 @@ const BouncingCirclesLoader = ({ progress }) => {
 
       {/* Progress text */}
       <motion.div
-        className="ml-4 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-rose-400"
+        className="ml-4 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-lavender to-storm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
