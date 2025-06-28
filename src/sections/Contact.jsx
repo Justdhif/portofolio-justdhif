@@ -65,7 +65,7 @@ const Contact = () => {
     >
 
       <motion.div
-        className="w-full max-w-4xl mx-auto"
+        className="w-full mx-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -76,10 +76,8 @@ const Contact = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="relative p-8 rounded-2xl bg-gray-900/80 border border-gray-700/50 backdrop-blur-lg shadow-2xl overflow-hidden"
+          className="relative p-8 rounded-2xl overflow-hidden"
         >
-          {/* Space-themed decorative elements */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
           <div className="absolute top-4 right-4 w-3 h-3 rounded-full bg-indigo-400/80 animate-pulse"></div>
           <div className="absolute bottom-4 left-4 w-2 h-2 rounded-full bg-purple-400/80 animate-pulse delay-300"></div>
 
@@ -94,7 +92,6 @@ const Contact = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Contact Form */}
               <div>
                 <ContactForm
                   formData={formData}
@@ -106,7 +103,6 @@ const Contact = () => {
                 />
               </div>
 
-              {/* Social Media Section */}
               <div className="flex flex-col">
                 <SocialLinks />
                 <ContactInfo />
