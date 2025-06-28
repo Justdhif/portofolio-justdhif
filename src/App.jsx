@@ -9,6 +9,7 @@ import Feedback from "./sections/Feedback";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import SplashScreen from "./components/SplashScreen";
+import MusicPlayer from "./components/MusicPlayer";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ const App = () => {
 
   return (
     <div className="container mx-auto max-w-7xl overflow-x-hidden">
+      <MusicPlayer />
       <Navbar />
       <Hero />
       <About />

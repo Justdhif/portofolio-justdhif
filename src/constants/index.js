@@ -160,3 +160,36 @@ export const reviews = [
     img: "https://robohash.org/eve",
   },
 ];
+
+export const playlist = [
+  {
+    title: "The Number Song",
+    artist: "Logan Paul",
+    src: "/assets/music/the-number-song.mp3",
+    cover: "/assets/music/covers/the-number-song-cover.jpg",
+  },
+  {
+    title: "8 Letters",
+    artist: "Why don't we",
+    src: "/assets/music/8-letters.mp3",
+    cover: "/assets/music/covers/8-letters-cover.jpg",
+  },
+  {
+    title: "Back to Friends",
+    artist: "Sombr",
+    src: "/assets/music/back-to-friends.mp3",
+    cover: "/assets/music/covers/back-to-friends-cover.jpg",
+  },
+  {
+    title: "About You",
+    artist: "The 1975",
+    src: "/assets/music/about-you-1975.mp3",
+    cover: "/assets/music/covers/about-you-cover.jpg",
+  },
+  {
+    title: "Daylight",
+    artist: "Maroon 5",
+    src: "/assets/music/daylight-maroon5.mp3",
+    cover: "/assets/music/covers/daylight-maroon5-cover.jpg",
+  },
+];
