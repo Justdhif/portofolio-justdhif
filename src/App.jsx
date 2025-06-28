@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
@@ -8,10 +8,44 @@ import Testimonial from "./sections/Testimonial";
 import Feedback from "./sections/Feedback";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
+import SplashScreen from "./components/SplashScreen";
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    // Simulate actual loading progress
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        const newProgress = prev + Math.random() * 15;
+        if (newProgress >= 100) {
+          clearInterval(interval);
+          setLoading(false);
+          return 100;
+        }
+        return newProgress;
+      });
+    }, 200);
+
+    // Safety timeout in case loading stalls
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+      setLoading(false);
+    }, 5000); // Max 5 seconds fallback
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  if (loading) {
+    return <SplashScreen progress={progress} />;
+  }
+
   return (
-    <div className="container mx-auto max-w-7xl">
+    <div className="container mx-auto max-w-7xl overflow-x-hidden">
       <Navbar />
       <Hero />
       <About />
