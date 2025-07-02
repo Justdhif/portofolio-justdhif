@@ -76,15 +76,6 @@ const HeroText = () => {
               className="font-bold text-white text-7xl"
             />
           </motion.div>
-          <motion.p
-            className="text-4xl font-black text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.8 }}
-          >
-            Web Solution
-          </motion.p>
         </div>
       </div>
     </div>

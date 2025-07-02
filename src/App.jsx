@@ -16,7 +16,6 @@ const App = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Simulate actual loading progress
     const interval = setInterval(() => {
       setProgress((prev) => {
         const newProgress = prev + Math.random() * 15;
@@ -29,11 +28,10 @@ const App = () => {
       });
     }, 200);
 
-    // Safety timeout in case loading stalls
     const timeout = setTimeout(() => {
       clearInterval(interval);
       setLoading(false);
-    }, 5000); // Max 5 seconds fallback
+    }, 5000);
 
     return () => {
       clearInterval(interval);

@@ -23,7 +23,7 @@ export const Timeline = ({ data }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <div className="c-space section-spacing" ref={containerRef}>
+    <div className="relative c-space section-spacing" ref={containerRef}>
       <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
         {" "}
         Work <span className="text-lavender"> Experiences </span>

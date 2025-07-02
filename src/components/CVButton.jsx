@@ -1,6 +1,3 @@
-import { useState } from "react";
-import CVPreview from "./CVPreview";
-
 const CVButton = ({ onClick }) => {
   return (
     <button
