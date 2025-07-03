@@ -31,7 +31,7 @@ const Footer = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 p-3 bg-neutral-800 hover:bg-neutral-700 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-50 border border-neutral-600"
+          className="fixed bottom-6 right-6 p-3 bg-neutral-800 hover:bg-neutral-700 rounded-full shadow-lg transition-all duration-300 hover:scale-110 border border-neutral-600"
           aria-label="Back to top"
         >
           <ArrowUp className="w-5 h-5 text-neutral-300" />
