@@ -48,7 +48,7 @@ const About = () => {
               ref={grid2Container}
               className="flex items-center justify-center w-full h-full"
             >
-              <p className="flex items-end text-5xl text-gray-500 uppercase">
+              <p className="flex items-end lg:text-5xl text-4xl text-gray-500 uppercase">
                 Code is craft
               </p>
               <Card
