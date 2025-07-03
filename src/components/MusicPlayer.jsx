@@ -1,7 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import { playlist } from "../constants";
-import { Play, Pause, SkipForward, SkipBack, Music } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Music } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import AudioControls from "./AudioControls";
+import ProgressBar from "./ProgressBar";
+import TrackInfo from "./TrackInfo";
 
 const MusicPlayer = () => {
   const audioRef = useRef(null);
@@ -10,6 +13,8 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [volume, setVolume] = useState(0.7);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -33,6 +38,12 @@ const MusicPlayer = () => {
       audio.removeEventListener("ended", handleEnded);
     };
   }, [currentTrack, isPlaying]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : volume;
+    }
+  }, [volume, isMuted]);
 
   const togglePanel = () => {
     setIsOpen((prev) => !prev);
@@ -85,15 +96,8 @@ const MusicPlayer = () => {
     }
   };
 
-  const formatTime = (time) => {
-    if (isNaN(time)) return "00:00";
-    const minutes = Math.floor(time / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = Math.floor(time % 60)
-      .toString()
-      .padStart(2, "0");
-    return `${minutes}:${seconds}`;
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -102,6 +106,7 @@ const MusicPlayer = () => {
         ref={audioRef}
         src={playlist[currentTrack].src}
         preload="metadata"
+        volume={volume}
       />
 
       <div className="flex flex-col items-start">
@@ -147,160 +152,62 @@ const MusicPlayer = () => {
 
                 {/* Info and Controls - Mobile */}
                 <div className="flex-1 p-3 flex flex-col justify-between min-w-0">
-                  <div className="truncate">
-                    <h3 className="font-bold truncate">
-                      {playlist[currentTrack].title}
-                    </h3>
-                    <p className="text-gray-300 text-sm truncate">
-                      {playlist[currentTrack].artist}
-                    </p>
-                  </div>
+                  <TrackInfo
+                    currentTrack={currentTrack}
+                    playlist={playlist}
+                    isMobile={true}
+                  />
 
                   <div className="flex items-center justify-between mt-2">
-                    <div className="text-xs text-gray-400">
-                      {formatTime(currentTime)}
-                    </div>
-
                     <div className="flex-1 mx-2">
-                      <input
-                        type="range"
-                        min={0}
-                        max={duration}
-                        value={currentTime}
-                        onChange={handleSeek}
-                        step="0.1"
-                        className="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
-                        style={{
-                          background: `linear-gradient(to right, #3b82f6 ${
-                            (currentTime / duration) * 100
-                          }%, #374151 ${(currentTime / duration) * 100}%)`,
-                        }}
+                      <ProgressBar
+                        duration={duration}
+                        currentTime={currentTime}
+                        handleSeek={handleSeek}
                       />
-                    </div>
-
-                    <div className="text-xs text-gray-400">
-                      {formatTime(duration)}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-center gap-4 mt-2">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handlePrev}
-                      className="p-2 text-gray-300 hover:text-white"
-                    >
-                      <SkipBack size={18} />
-                    </motion.button>
-
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={togglePlay}
-                      className="p-2 bg-blue-600 rounded-full hover:bg-blue-700"
-                    >
-                      {isPlaying ? (
-                        <Pause size={20} fill="currentColor" />
-                      ) : (
-                        <Play size={20} fill="currentColor" />
-                      )}
-                    </motion.button>
-
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handleNext}
-                      className="p-2 text-gray-300 hover:text-white"
-                    >
-                      <SkipForward size={18} />
-                    </motion.button>
+                  <div className="mt-2">
+                    <AudioControls
+                      isPlaying={isPlaying}
+                      togglePlay={togglePlay}
+                      handleNext={handleNext}
+                      handlePrev={handlePrev}
+                      volume={volume}
+                      toggleMute={toggleMute}
+                      setVolume={setVolume}
+                      isMuted={isMuted}
+                    />
                   </div>
                 </div>
               </div>
 
               {/* Desktop layout */}
               <div className="hidden md:block w-[320px]">
-                {/* Album Art */}
-                <motion.div
-                  key={currentTrack}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative h-48 w-full overflow-hidden"
-                >
-                  <img
-                    src={playlist[currentTrack].cover}
-                    alt={`${playlist[currentTrack].title} cover`}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
-                  <div className="absolute bottom-4 left-4">
-                    <h3 className="text-xl font-bold truncate max-w-[240px]">
-                      {playlist[currentTrack].title}
-                    </h3>
-                    <p className="text-gray-300 text-sm">
-                      {playlist[currentTrack].artist}
-                    </p>
-                  </div>
-                </motion.div>
+                <TrackInfo
+                  currentTrack={currentTrack}
+                  playlist={playlist}
+                  isMobile={false}
+                />
 
-                {/* Controls */}
                 <div className="p-4">
-                  {/* Progress Bar */}
-                  <div className="mb-2">
-                    <input
-                      type="range"
-                      min={0}
-                      max={duration}
-                      value={currentTime}
-                      onChange={handleSeek}
-                      step="0.1"
-                      className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
-                      style={{
-                        background: `linear-gradient(to right, #3b82f6 ${
-                          (currentTime / duration) * 100
-                        }%, #374151 ${(currentTime / duration) * 100}%)`,
-                      }}
-                    />
-                    <div className="flex justify-between text-xs text-gray-400 mt-1">
-                      <span>{formatTime(currentTime)}</span>
-                      <span>{formatTime(duration)}</span>
-                    </div>
-                  </div>
+                  <ProgressBar
+                    duration={duration}
+                    currentTime={currentTime}
+                    handleSeek={handleSeek}
+                  />
 
-                  {/* Buttons */}
-                  <div className="flex items-center justify-center gap-6">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handlePrev}
-                      className="p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
-                    >
-                      <SkipBack size={20} />
-                    </motion.button>
-
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={togglePlay}
-                      className="p-3 bg-blue-600 rounded-full hover:bg-blue-700 transition-all shadow-md"
-                    >
-                      {isPlaying ? (
-                        <Pause size={20} fill="currentColor" />
-                      ) : (
-                        <Play size={20} fill="currentColor" />
-                      )}
-                    </motion.button>
-
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handleNext}
-                      className="p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
-                    >
-                      <SkipForward size={20} />
-                    </motion.button>
-                  </div>
+                  <AudioControls
+                    isPlaying={isPlaying}
+                    togglePlay={togglePlay}
+                    handleNext={handleNext}
+                    handlePrev={handlePrev}
+                    volume={volume}
+                    toggleMute={toggleMute}
+                    setVolume={setVolume}
+                    isMuted={isMuted}
+                  />
                 </div>
               </div>
             </motion.div>

@@ -163,10 +163,10 @@ export const reviews = [
 
 export const playlist = [
   {
-    title: "The Number Song",
-    artist: "Logan Paul",
-    src: "/assets/music/the-number-song.mp3",
-    cover: "/assets/music/covers/the-number-song-cover.jpg",
+    title: "Bergema Sampai Selamanya",
+    artist: "Nadhif Ararya Wiankosasi",
+    src: "/assets/music/bergema-sampai-selamanya.mp3",
+    cover: "/assets/music/covers/bergema-sampai-selamanya-cover.jpg",
   },
   {
     title: "8 Letters",
